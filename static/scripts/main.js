@@ -1,12 +1,12 @@
 var mainApp = angular.module("mainApp",['nvd3','ui.bootstrap']);
-/*
+
 namespace = '/test';
 var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
 
 socket.on('connect', function() {
      socket.emit('my_event', {data: 'I\'m connected!'});
 });
-*/
+
 
 mainApp.controller('mainController', function($scope) {
     $scope.student = {
@@ -21,22 +21,36 @@ mainApp.controller('mainController', function($scope) {
     };
     
     $scope.msg = "NEW MSG";
-    /*
+    
+    $scope.nodes = ['P1', 'P2', 'O1', 'O2', 'T1', 'T2'];
+    $scope.nodeVal = [0,0,0,0,0,0];
+    
     socket.on('my_response', function(message) {
-         console.log(message.count);
-         $scope.msg = message.count; 
+         $scope.msg = message.count;
+        
+         for(i=0; i< $scope.nodeVal.length; i++){
+             $scope.nodeVal[i] = message.count + i;
+         }
          $scope.$apply();
     });
-    */
+    
+    
+    
     
     var black = { "color" : "white","background-color" : "black"}
     var white = { "color" : "black","background-color" : "white"}
                 
     $scope.styleTiles = [black, black, black];
     $scope.count = [true, true, true] //[0,0,0];
-    $scope.freqTiles = [5,10,20];  // 5,10,20
-                  
-    setInterval(function(){ 
+    $scope.freqTiles = [8,10,12];  // 5,10,20
+     
+    
+    var isRunning = true;
+    var intervalID = [0,0,0];
+    
+    $scope.changeRunState = function(){
+        if(isRunning){
+            intervalID[0] = setInterval(function(){ 
                     if ($scope.count[0]){
                         $scope.styleTiles[0] = white;
                         $scope.$apply();
@@ -50,7 +64,7 @@ mainApp.controller('mainController', function($scope) {
                     
                 }, 1000/$scope.freqTiles[0]);
                 
-    setInterval(function(){ 
+            intervalID[1] = setInterval(function(){ 
                     if ($scope.count[1]){
                         $scope.styleTiles[1] = white;
                         $scope.$apply();
@@ -64,7 +78,7 @@ mainApp.controller('mainController', function($scope) {
                     
                 }, 1000/$scope.freqTiles[1]);
                 
-    setInterval(function(){ 
+            intervalID[2] = setInterval(function(){ 
                     if ($scope.count[2]){
                         $scope.styleTiles[2] = white;
                         $scope.$apply();
@@ -75,8 +89,20 @@ mainApp.controller('mainController', function($scope) {
                         $scope.$apply();
                         $scope.count[2] = true;
                     }
-                }, 1000/$scope.freqTiles[2]);
-                
+                }, 1000/$scope.freqTiles[2]);   
+        }
+        else{
+            clearInterval(intervalID[0]);
+            clearInterval(intervalID[1]);
+            clearInterval(intervalID[2]);
+        }
+        isRunning = !isRunning;
+    }
+    
+    // Intial Start
+    $scope.changeRunState();
+    
+            
     /*
                 for (i = 0; i < $scope.styleTiles.length; i++) { 
                     
