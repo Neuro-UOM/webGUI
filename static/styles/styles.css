@@ -12,3 +12,13 @@
 .blue{
 	background:#00f;
 }
+
+.boxes{
+    color:white; 
+    background-color:Aquamarine; 
+    font-size:40px; 
+    padding:20px; 
+    text-align:center;
+    border: 2px solid DarkBlue ;
+    border-radius: 10px;
+}
