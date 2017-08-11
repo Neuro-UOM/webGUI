@@ -1,0 +1,21 @@
+{
+  "name": "neuro-uom",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Nadun Indunil <nadun1indunil@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/Neuro-UOM/webGUI",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.6.5",
+    "socket.io-client": "^2.0.3"
+  }
+}

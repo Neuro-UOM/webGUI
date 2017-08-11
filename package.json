@@ -1,0 +1,19 @@
+{
+  "name": "neuro-uom",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Neuro-UOM/webGUI.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Neuro-UOM/webGUI/issues"
+  },
+  "homepage": "https://github.com/Neuro-UOM/webGUI#readme"
+}

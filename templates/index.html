@@ -1,47 +1,15 @@
 <html>
-   
    <head>
         <title>Angular JS Controller</title>
-        <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-        <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.5/socket.io.min.js"></script>
-       
-        <script>
-             var mainApp = angular.module("mainApp", []);
-            
-            namespace = '/test';
-            var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
-            
-            socket.on('connect', function() {
-                socket.emit('my_event', {data: 'I\'m connected!'});
-            });
-            
-            mainApp.controller('studentController', function($scope) {
-                $scope.student = {
-                   firstName: "Mahesh",
-                   lastName: "Parashar",
-
-                   fullName: function() {
-                      var studentObject;
-                      studentObject = $scope.student;
-                      return studentObject.firstName + " " + studentObject.lastName;
-                   }
-                };
-                
-                $scope.msg = "Message Here ";
-                $scope.msg = "NEW MSG";
-                
-                
-                
-                
-                socket.on('my_response', function(message) {
-                    $scope.msg = message.count; 
-                    $scope.$apply();
-                });
-                
-                
-                // https://stackoverflow.com/questions/31778139/angularjs-ng-repeat-not-printing-variable
-             });
-          </script>
+        <!-- build:js scripts/vendor.js -->
+        <!-- bower:js -->
+        <script src = "/static/lib/angular/angular.js"></script>
+        <script src = "/static/lib/socket.io-client/dist/socket.io.slim.js"></script>
+        <script src= "/static/scripts/main.js"></script>
+        
+        <!-- endbower -->
+        <!-- endbuild -->
+        
    </head>
    
    <body>
@@ -50,6 +18,6 @@
       <div ng-app = "mainApp" ng-controller = "studentController">
          You are entering: {{ '{{student.firstName}}' }}
          <h1> {{ '{{msg}}' }} </h1>
-      </div>
+      </div>      
    </body>
 </html>
