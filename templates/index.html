@@ -46,25 +46,16 @@
     <!-- <h2>AngularJS Sample Application</h2> -->
     
     <div ng-app = "mainApp">
-
-        <div class="row">
-            <div class="col-md-4 box red">
-                vf
-            </div>
-            <div class="col-md-4 box green">
-                vf
-            </div>
-            <div class="col-md-4 box blue">
-                vf
-            </div>
-
-            
+        <div ng-controller="mainController">
+            <div class="row" style="height: 30%;" >
+                <div class="col-md-1" >
+                    <!-- <h1> {{ '{{student.firstName}}' }} {{ '{{msg}}' }} </h1> *JUST EMPTY col-md-1 for margin --> 
+                </div>
+                <div class="col-md-3" ng-repeat="frequency in freqTiles" ng-style="styleTiles[$index]" style="font-size:60px; padding:50px;  text-align:center; margin:10px;">
+                    {{ '{{freqTiles[$index]}}' }} Hz
+                </div>
+            </div> 
         </div>
-
-        <!-- <div ng-controller="studentController">
-            You are entering: {{ '{{student.firstName}}' }}
-            <h1> {{ '{{msg}}' }} </h1>
-        </div> -->
 
         <div class="row">
             <div class="col-md-8">
