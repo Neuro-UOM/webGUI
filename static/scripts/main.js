@@ -38,7 +38,7 @@ mainApp.controller('mainController', function($scope) {
                 
     $scope.styleTiles = [black, black, black];
     $scope.count = [true, true, true] //[0,0,0];
-    $scope.freqTiles = [5,2,10];  // 5,10,20
+    $scope.freqTiles = [8,10,12];  // 5,10,20
     
     var isRunning = true;
     var intervalID = [0,0,0];
@@ -58,7 +58,7 @@ mainApp.controller('mainController', function($scope) {
                                             $scope.$apply();
                                         }
                                         $scope.count[i] = !$scope.count[i];
-                                        //console.log(Date());  -> Sum of Freqs.
+                                        //console.log(Date());  //-> Sum of Freqs.
                                     }, 1000/$scope.freqTiles[i])
                 })(i);
             }
