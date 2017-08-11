@@ -45,8 +45,8 @@
     
     <!-- <h2>AngularJS Sample Application</h2> -->
     
-    <div ng-app = "mainApp" ng-controller="mainController">
-            <div class="row" style="height: 35%;" >
+    <div ng-app = "mainApp" >
+            <div class="row" style="height: 35%;" ng-controller="freqController">
                 <div class="col-md-1" >
                     <button ng-click="changeRunState()" style="font-size:20px; padding: 30px;  text-align:center; background-color:coral">CLICK</button>
                 </div>
@@ -57,13 +57,15 @@
 
         <div class="row">
             <div class="col-md-8">
+                <div ng-controller="chartController">
                     <nvd3 options="options" data="data"></nvd3>
+                </div>
             </div>
 
             <div class="col-md-4">
                 <div class="row" style="color:white; background-color:coral; font-size:80px; padding:30px; text-align:center;"> 10Hz</div>
                 <div class="row" style="margin:10px;"></div>
-                <div class="row">
+                <div class="row" ng-controller="nodesController">
                     <div class="col-md-6 boxes" ng-repeat="node in nodes">
                     {{ '{{nodes[$index]}}' }} <br/> {{ '{{nodeVal[$index]}}' }}
                     </div>
