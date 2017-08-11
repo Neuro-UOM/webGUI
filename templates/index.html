@@ -1,23 +1,99 @@
 <html>
    <head>
         <title>Angular JS Controller</title>
+
+        <meta charset="utf-8">  <!-- it's important for d3.js -->
+
+        <link rel="stylesheet" href="/static/lib/nvd3/build/nv.d3.css">
+        <link rel="stylesheet" href="/static/styles/styles.css">
+        <link rel="stylesheet" href="/static/lib/bootstrap/dist/css/bootstrap.css" />
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
         <script src = "/static/lib/angular/angular.js"></script>
         <script src = "/static/lib/socket.io-client/dist/socket.io.slim.js"></script>
-        <script src= "/static/scripts/main.js"></script>
+        <script src = "/static/lib/angular-bootstrap/ui-bootstrap.min.js"></script>
+
+
+        <script src="/static/lib/d3/d3.js"></script>
+        <script src="/static/lib/nvd3/build/nv.d3.js"></script> <!-- or use another assembly -->
+        <script src="/static/lib/angular-nvd3/dist/angular-nvd3.js"></script>
         
         <!-- endbower -->
         <!-- endbuild -->
+        <script src= "/static/scripts/main.js"></script>
         
    </head>
    
    <body>
-      <h2>AngularJS Sample Application</h2>
-      
-      <div ng-app = "mainApp" ng-controller = "studentController">
-         You are entering: {{ '{{student.firstName}}' }}
-         <h1> {{ '{{msg}}' }} </h1>
-      </div>      
+       <nav class="navbar navbar-default" role="navigation">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" ng-click="isNavCollapsed = !isNavCollapsed">
+				<span class="sr-only">Neuro-UOM</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">Neuro-UOM</a>
+		</div>
+		<div class="collapse navbar-collapse" uib-collapse="isNavCollapsed">
+			<ul class="nav navbar-nav">
+				<li><a href="#">Link 1</a></li>
+				<li><a href="#">Link 2</a></li>
+			</ul>
+		</div>
+    </nav>
+    
+    <!-- <h2>AngularJS Sample Application</h2> -->
+    
+    <div ng-app = "mainApp">
+
+        <div class="row">
+            <div class="col-md-4 box red">
+                vf
+            </div>
+            <div class="col-md-4 box green">
+                vf
+            </div>
+            <div class="col-md-4 box blue">
+                vf
+            </div>
+
+            
+        </div>
+
+        <!-- <div ng-controller="studentController">
+            You are entering: {{ '{{student.firstName}}' }}
+            <h1> {{ '{{msg}}' }} </h1>
+        </div> -->
+
+        <div class="row">
+            <div class="col-md-8">
+                <div ng-controller="cmlCtrl">
+                    <nvd3 options="options" data="data"></nvd3>
+                </div> 
+            </div>
+
+            <div class="col-md-4">
+                <div class="row"> 10Hz</div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="row"> P7</div>
+                        <div class="row"> T7</div>
+                        <div class="row"> O1</div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row"> P8</div>
+                        <div class="row"> T8</div>
+                        <div class="row"> O2</div>                 
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        
+    </div>
+
+        
    </body>
 </html>
