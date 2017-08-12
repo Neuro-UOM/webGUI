@@ -45,38 +45,27 @@
     
     <!-- <h2>AngularJS Sample Application</h2> -->
     
-    <div ng-app = "mainApp">
-        <div ng-controller="mainController">
-            <div class="row" style="height: 30%;" >
+    <div ng-app = "mainApp" >
+            <div class="row" style="height: 35%;" ng-controller="freqController">
                 <div class="col-md-1" >
-                    <!-- <h1> {{ '{{student.firstName}}' }} {{ '{{msg}}' }} </h1> *JUST EMPTY col-md-1 for margin --> 
+                    <button ng-click="changeRunState()" style="font-size:20px; padding: 30px;  text-align:center; background-color:coral">CLICK</button>
                 </div>
-                <div class="col-md-3" ng-repeat="frequency in freqTiles" ng-style="styleTiles[$index]" style="font-size:60px; padding:50px;  text-align:center; margin:10px;">
+                <div class="col-md-3" ng-repeat="frequency in freqTiles" ng-style="styleTiles[$index]" style="font-size:60px; padding: 80px;  text-align:center; margin:10px;">
                     {{ '{{freqTiles[$index]}}' }} Hz
                 </div>
             </div> 
-        </div>
 
         <div class="row">
             <div class="col-md-8">
-                <div ng-controller="cmlCtrl">
+                <div ng-controller="chartController">
                     <nvd3 options="options" data="data"></nvd3>
-                </div> 
+                </div>
             </div>
 
-            <div class="col-md-4" ng-controller="presentController">
-                <div class="row" style="color:white; background-color:coral; font-size:80px; padding:30px; text-align:center;"> 10Hz</div>
-                <div class="row" style="margin:10px;"></div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="row boxes"> P7 {{ '{{raw_data.P7}}' }}</div>
-                        <div class="row boxes"> T7 {{ '{{raw_data.T7}}' }}</div>
-                        <div class="row boxes"> O1 {{ '{{raw_data.O1}}' }}</div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="row boxes"> P8 {{ '{{raw_data.P8}}' }}</div>
-                        <div class="row boxes"> T8 {{ '{{raw_data.T8}}' }}</div>
-                        <div class="row boxes"> O2 {{ '{{raw_data.O2}}' }}</div>                 
+            <div class="col-md-4">
+                <div class="row" ng-controller="nodesController">
+                    <div class="col-md-6 boxes" ng-repeat="node in nodes">
+                    {{ '{{nodes[$index]}}' }} <br/> {{ '{{nodeVal[$index]}}' }}
                     </div>
                 </div>
             </div>

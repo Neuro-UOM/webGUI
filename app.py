@@ -116,16 +116,17 @@ def ping_pong():
 
 
 @socketio.on('connect', namespace='/test')
-def rawData():
-    global thread
-    if thread is None:
-        thread = socketio.start_background_task(target=collect_raw_thread)
-    emit('raw_response', {'data': 'Connected', 'raw_array': [1,1,1,1,1,1]})
-# def test_connect():
+# def rawData():
 #     global thread
 #     if thread is None:
-#         thread = socketio.start_background_task(target=background_thread)
-#     emit('my_response', {'data': 'Connected', 'count': 0})
+#         thread = socketio.start_background_task(target=collect_raw_thread)
+#     emit('raw_response', {'data': 'Connected', 'raw_array': [1,1,1,1,1,1]})
+def test_connect():
+    global thread
+    if thread is None:
+        thread = socketio.start_background_task(target=background_thread)
+    emit('my_response', {'data': 'Connected', 'count': 0})
+
 
 
 @socketio.on('disconnect', namespace='/test')
