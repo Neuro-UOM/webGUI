@@ -135,16 +135,17 @@ mainApp.controller('chartController', function($scope) {
 });
 
 mainApp.controller('nodesController', function($scope) {
-    $scope.msg = "NEW MSG";
     
     $scope.nodes = ['P7', 'P8', 'T7', 'T8', 'O1', 'O2'];
     $scope.nodeVal = [0,0,0,0,0,0];
     
-    socket.on('my_response', function(message) {
-         $scope.msg = message.count;
+    socket.on('raw_response', function(message) {
+         console.log(message.raw_array[0]);
+
+         var dataArr = message.raw_array;
         
          for(i=0; i< $scope.nodeVal.length; i++){
-             $scope.nodeVal[i] = message.count + i;
+           $scope.nodeVal[i] = dataArr[i];
          }
          $scope.$apply();
     });

@@ -29,11 +29,9 @@ def collect_raw_thread():
             if packet is not None:
                 for i in sensor_names:
                     sensor_vals.append(dict(packet.sensors)[i]['value'])
-                # print sensor_vals
                 socketio.sleep(0.1)
-                socketio.emit('raw_response',
-                            {'data': 'Server generated event', 'raw_array': sensor_vals},
-                            namespace='/test')
+                arr = sensor_vals
+                socketio.emit('raw_response',{'data': 'Server generated event', 'raw_array': arr}, namespace='/test')
 
 
 def background_thread():
@@ -116,18 +114,16 @@ def ping_pong():
 
 
 @socketio.on('connect', namespace='/test')
-# def rawData():
-#     global thread
-#     if thread is None:
-#         thread = socketio.start_background_task(target=collect_raw_thread)
-#     emit('raw_response', {'data': 'Connected', 'raw_array': [1,1,1,1,1,1]})
-def test_connect():
+def rawData():
     global thread
     if thread is None:
-        thread = socketio.start_background_task(target=background_thread)
-    emit('my_response', {'data': 'Connected', 'count': 0})
-
-
+        thread = socketio.start_background_task(target=collect_raw_thread)
+    emit('raw_response', {'data': 'Connected', 'raw_array': [1,1,1,1,1,1]})
+# def test_connect():
+#     global thread
+#     if thread is None:
+#         thread = socketio.start_background_task(target=background_thread)
+#     emit('my_response', {'data': 'Connected', 'count': 0})
 
 @socketio.on('disconnect', namespace='/test')
 def test_disconnect():
