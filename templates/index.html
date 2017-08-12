@@ -64,26 +64,23 @@
                 </div> 
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4" ng-controller="presentController">
                 <div class="row" style="color:white; background-color:coral; font-size:80px; padding:30px; text-align:center;"> 10Hz</div>
                 <div class="row" style="margin:10px;"></div>
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="row boxes"> P7</div>
-                        <div class="row boxes"> T7</div>
-                        <div class="row boxes"> O1</div>
+                        <div class="row boxes"> P7 {{ '{{raw_data.P7}}' }}</div>
+                        <div class="row boxes"> T7 {{ '{{raw_data.T7}}' }}</div>
+                        <div class="row boxes"> O1 {{ '{{raw_data.O1}}' }}</div>
                     </div>
                     <div class="col-md-6">
-                        <div class="row boxes"> P8</div>
-                        <div class="row boxes"> T8</div>
-                        <div class="row boxes"> O2</div>                 
+                        <div class="row boxes"> P8 {{ '{{raw_data.P8}}' }}</div>
+                        <div class="row boxes"> T8 {{ '{{raw_data.T8}}' }}</div>
+                        <div class="row boxes"> O2 {{ '{{raw_data.O2}}' }}</div>                 
                     </div>
                 </div>
             </div>
         </div>
-        
-
-        
     </div>
 
         

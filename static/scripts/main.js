@@ -1,12 +1,12 @@
 var mainApp = angular.module("mainApp",['nvd3','ui.bootstrap']);
-/*
+
 namespace = '/test';
 var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
 
 socket.on('connect', function() {
      socket.emit('my_event', {data: 'I\'m connected!'});
 });
-*/
+
 
 mainApp.controller('mainController', function($scope) {
     $scope.student = {
@@ -178,3 +178,36 @@ mainApp.controller('cmlCtrl', function($scope){
     
 });
 
+
+mainApp.controller('presentController', function($scope){
+    $scope.raw_data = {
+        P7:0,
+        P8:0,
+        T7:0,
+        T8:0,
+        O1:0,
+        O2:0
+    };
+    console.log("before");
+    socket.on('raw_response', function(message) {
+        console.log(message);
+         $scope.raw_array = message.raw_array;
+         $scope.raw_data.P7 = message.raw_array[0];
+         $scope.raw_data.P8 = message.raw_array[1];
+         $scope.raw_data.T7 = message.raw_array[2];
+         $scope.raw_data.T8 = message.raw_array[3];
+         $scope.raw_data.O1 = message.raw_array[4];
+         $scope.raw_data.O2 = message.raw_array[5];
+
+         $scope.$apply();
+    });
+
+    console.log("after");
+
+
+
+
+
+
+    
+});

@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+import time
+from emokit.emotiv import Emotiv
+
 from flask import Flask, render_template, session, request
 from flask_socketio import SocketIO, emit, join_room, leave_room, \
     close_room, rooms, disconnect
@@ -12,6 +15,25 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app, async_mode=async_mode)
 thread = None
+
+def collect_raw_thread():
+
+    """ collect raw data from another thread"""
+
+    sensor_names = ["T7","T8","P7","P8","O1","O2"]
+
+    with Emotiv(display_output=True, write=True, write_decrypted=True, verbose=True, output_path= "data") as headset:
+        while True:
+            packet = headset.dequeue()
+            sensor_vals = []
+            if packet is not None:
+                for i in sensor_names:
+                    sensor_vals.append(dict(packet.sensors)[i]['value'])
+                # print sensor_vals
+                socketio.sleep(0.1)
+                socketio.emit('raw_response',
+                            {'data': 'Server generated event', 'raw_array': sensor_vals},
+                            namespace='/test')
 
 
 def background_thread():
@@ -93,7 +115,12 @@ def ping_pong():
     emit('my_pong')
 
 
-# @socketio.on('connect', namespace='/test')
+@socketio.on('connect', namespace='/test')
+def rawData():
+    global thread
+    if thread is None:
+        thread = socketio.start_background_task(target=collect_raw_thread)
+    emit('raw_response', {'data': 'Connected', 'raw_array': [1,1,1,1,1,1]})
 # def test_connect():
 #     global thread
 #     if thread is None:
