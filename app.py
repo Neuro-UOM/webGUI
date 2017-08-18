@@ -9,8 +9,6 @@ from flask_socketio import SocketIO, emit, join_room, leave_room, \
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.fftpack import fft
-from IPython import get_ipython
-import seaborn as sns
 import glob
 import pandas as pd
 from scipy import signal

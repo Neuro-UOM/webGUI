@@ -71,15 +71,15 @@ mainApp.controller('chartController', function($scope) {
     $scope.dataA = [123213,123123,123,23,34,34,5,232,34];
     $scope.newData = [];
 
-    for (var j = 0 ; j < 101; j++){
+    for (var j = 0 ; j < 100; j++){
         $scope.dataA.push(0);
     }
 
     console.log("inside chart");
     socket.on('fourier_response', function(message) {
-         console.log(message.data);
+        //  console.log(message.data);
 
-         $scope.dataA = message.data;
+        $scope.dataA = message.data;
         //  var dataArr = message.raw_array;
         
         //  for(i=0; i< $scope.nodeVal.length; i++){
@@ -88,25 +88,33 @@ mainApp.controller('chartController', function($scope) {
         //  $scope.$apply();
 
         $scope.newData = [];
-        for (var i = $scope.dataA.length - 100 ; i < $scope.dataA.length; i++){
-            
-            $scope.newData.push( { x : i , y : $scope.dataA[i]});
+        for (var i = $scope.dataA.length - 100, j = 0 ; i < $scope.dataA.length, j < 100; i++ , j++){
+           if (parseFloat($scope.dataA[i]) != NaN){
+                $scope.newData.push( { x : j , y : parseFloat($scope.dataA[i])});
+                // console.log($scope.newData.length);
+           }
         }
-    });
-    
-    $scope.options = {
+
+        console.log($scope.newData);
+
+        $scope.options = {
             chart: {
                 type: 'sparklinePlus',
                 height: 450,
                 x: function(d, i){return i;},
                 xTickFormat: function(d) {
-                    return d3.time.format('%x')(new Date($scope.data[d].x))
+                    return $scope.newData[d].x
                 },
                 duration: 250
             }
         };
 
-    $scope.data = $scope.newData;
+        $scope.data = $scope.newData;
+
+        $scope.$apply();
+    });
+    
+    
 });
 
 mainApp.controller('nodesController', function($scope) {
