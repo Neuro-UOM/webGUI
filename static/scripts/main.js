@@ -76,40 +76,97 @@ mainApp.controller('chartController', function($scope) {
     }
 
     console.log("inside chart");
+    // socket.on('array_response', function(message) {
+
+    //     $scope.dataA = message.data;
+
+    //     $scope.newData = [];
+    //     for (var i = $scope.dataA.length - 100, j = 0 ; i < $scope.dataA.length, j < 100; i++ , j++){
+    //        if (parseFloat($scope.dataA[i]) != NaN){
+    //             $scope.newData.push( { x : j , y : parseFloat($scope.dataA[i])});
+    //             // console.log($scope.newData.length);
+    //        }
+    //     }
+
+    //     // console.log($scope.newData);
+
+    //     $scope.options = {
+    //         chart: {
+    //             type: 'sparklinePlus',
+    //             height: 450,
+    //             x: function(d, i){return i;},
+    //             xTickFormat: function(d) {
+    //                 return $scope.newData[d].x
+    //             },
+    //             duration: 250
+    //         }
+    //     };
+
+    //     $scope.data = $scope.newData;
+
+    //     $scope.$apply();
+    // });
+
     socket.on('fourier_response', function(message) {
-        //  console.log(message.data);
-
-        $scope.dataA = message.data;
-        //  var dataArr = message.raw_array;
-        
-        //  for(i=0; i< $scope.nodeVal.length; i++){
-        //    $scope.nodeVal[i] = dataArr[i];
-        //  }
-        //  $scope.$apply();
-
+        console.log(message.ps);
+        $scope.dataA = message;
         $scope.newData = [];
-        for (var i = $scope.dataA.length - 100, j = 0 ; i < $scope.dataA.length, j < 100; i++ , j++){
+
+        for (var i = $scope.dataA.ps.length - 64, j = 1 ; i < $scope.dataA.ps.length, j <= 64; i++ , j++){
            if (parseFloat($scope.dataA[i]) != NaN){
-                $scope.newData.push( { x : j , y : parseFloat($scope.dataA[i])});
-                // console.log($scope.newData.length);
+                $scope.newData.push( { x : j , y : parseFloat($scope.dataA.ps[i])});
            }
         }
 
-        console.log($scope.newData);
+        // console.log($scope.newData);
+        
 
         $scope.options = {
             chart: {
-                type: 'sparklinePlus',
+                type: 'cumulativeLineChart',
                 height: 450,
-                x: function(d, i){return i;},
-                xTickFormat: function(d) {
-                    return $scope.newData[d].x
+                margin : {
+                    top: 20,
+                    right: 20,
+                    bottom: 60,
+                    left: 65
                 },
-                duration: 250
+                x: function(d){ return d.x; },
+                y: function(d){ return d.y; },
+
+                color: d3.scale.category10().range(),
+                duration: 300,
+                useInteractiveGuideline: true,
+                clipVoronoi: false,
+
+                xAxis: {
+                    axisLabel: 'X Axis',
+                    showMaxMin: false,
+                    staggerLabels: true
+                },
+
+                yAxis: {
+                    axisLabel: 'Y Axis',
+                    axisLabelDistance: 20
+                }
             }
+            // chart: {
+            //     type: 'sparklinePlus',
+            //     height: 450,
+            //     x: function(d, i){return i;},
+            //     xTickFormat: function(d) {
+            //         return $scope.newData[d].x
+            //     },
+            //     duration: 250
+            // }
         };
 
-        $scope.data = $scope.newData;
+        $scope.data = [{
+                key: "O2",
+                values: $scope.newData,
+            }];
+        
+        
 
         $scope.$apply();
     });

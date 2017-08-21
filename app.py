@@ -46,7 +46,7 @@ def Fourier_Thread(O2_array):
     freqs = np.fft.fftfreq( y.size , time_step )
     idx = np.argsort(freqs)
     
-    socketio.emit('fourier_response',{'data': 'Server generated event', 'freq': freqs , 'ps':ps, 'idx': idx }, namespace='/test')
+    socketio.emit('fourier_response',{'data': 'Server generated event', 'freq': freqs.tolist() , 'ps':ps.tolist() , 'idx':idx.tolist() }, namespace='/test')
 
     # return freqs[idx] , ps[idx]
 
@@ -68,15 +68,14 @@ def collect_raw_thread():
                 
                 O2_array.append(sensor_vals[5])
                 
-                socketio.sleep(0.1)
+                socketio.sleep(0.0078)
 
-                # if len(O2_array) > 128:
-                #     socketio.emit('fourier_response',{'data': 'Server generated event' }, namespace='/test')
-                #     Fourier_Thread(O2_array)
+                if len(O2_array)%128 == 0:
+                    Fourier_Thread(O2_array[-128:])
                     
                 arr = sensor_vals
                 
-                socketio.emit('fourier_response',{'data': 'Server generated event', 'data': O2_array }, namespace='/test')
+                socketio.emit('array_response',{'data': 'Server generated event', 'data': O2_array }, namespace='/test')
                 socketio.emit('raw_response',{'data': 'Server generated event', 'raw_array': arr}, namespace='/test')
 
 
