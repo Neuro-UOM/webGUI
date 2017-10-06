@@ -70,8 +70,8 @@ def collect_raw_thread():
                 
                 socketio.sleep(0.0078)
 
-                if len(O2_array)%128 == 0:
-                    Fourier_Thread(O2_array[-128:])
+                if len(O2_array)%1024 == 0:
+                    Fourier_Thread(O2_array[-1024:])
                     
                 arr = sensor_vals
                 

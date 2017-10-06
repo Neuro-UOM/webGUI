@@ -108,15 +108,31 @@ mainApp.controller('chartController', function($scope) {
     // });
 
     socket.on('fourier_response', function(message) {
-        console.log(message.ps);
+        //console.log(message.ps);
         $scope.dataA = message;
         $scope.newData = [];
 
+        console.log($scope.dataA.idx[0]+"  "+$scope.dataA.freq[0]+"  "+$scope.dataA.ps[0]);
+        console.log($scope.dataA.idx[64]+"  "+$scope.dataA.freq[64]+"  "+$scope.dataA.ps[64]);
+        console.log($scope.dataA.idx[127]+"  "+$scope.dataA.freq[127]+"  "+$scope.dataA.ps[127]);
+
+        /*
         for (var i = $scope.dataA.ps.length - 64, j = 1 ; i < $scope.dataA.ps.length, j <= 64; i++ , j++){
            if (parseFloat($scope.dataA[i]) != NaN){
-                $scope.newData.push( { x : j , y : parseFloat($scope.dataA.ps[i])});
+                $scope.newData.push( { x : j-64 , y : parseFloat($scope.dataA.ps[i])});
            }
         }
+        */
+
+        // PLOT GRAPH FREQ 5Hz - 25Hz
+
+        for (var i = 0; i < $scope.dataA.idx.length; i++){
+            if (parseFloat($scope.dataA[i]) != NaN){
+                if($scope.dataA.freq[i]>5 && $scope.dataA.freq[i]<25){
+                    $scope.newData.push( { x : $scope.dataA.freq[i] , y : parseFloat($scope.dataA.ps[i])});
+                }
+            }
+         }
 
         // console.log($scope.newData);
         
