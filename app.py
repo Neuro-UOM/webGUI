@@ -50,6 +50,23 @@ def Fourier_Thread(O2_array):
 
     # return freqs[idx] , ps[idx]
 
+def PSDA_Thread(O2_array):
+    # specifying the O2 node for the value
+    # power spectral density analysis
+    y = O2_array
+    y = butter_highpass_filter(y,5,132,5)
+    '''
+    ps = np.abs(np.fft.fft(y))**2
+
+    time_step = float(1)/128
+    freqs = np.fft.fftfreq( y.size , time_step )
+    idx = np.argsort(freqs)
+    '''
+    socketio.emit('fourier_response',{'data': 'Server generated event', 'freq': freqs.tolist() , 'ps':ps.tolist() , 'idx':idx.tolist() }, namespace='/test')
+
+    # return freqs[idx] , ps[idx]
+
+
 
 def collect_raw_thread():
 
