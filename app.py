@@ -55,13 +55,11 @@ def PSDA_Thread(O2_array):
     # power spectral density analysis
     y = O2_array
     y = butter_highpass_filter(y,5,132,5)
-    '''
-    ps = np.abs(np.fft.fft(y))**2
-
     time_step = float(1)/128
-    freqs = np.fft.fftfreq( y.size , time_step )
-    idx = np.argsort(freqs)
-    '''
+    
+    f, psd = signal.periodogram(y, time_step)
+    # f frequency , psd power spectral density
+    
     socketio.emit('fourier_response',{'data': 'Server generated event', 'freq': freqs.tolist() , 'ps':ps.tolist() , 'idx':idx.tolist() }, namespace='/test')
 
     # return freqs[idx] , ps[idx]
